@@ -30,19 +30,60 @@ static void set_board_at(game_state_t* state, int x, int y, char ch) {
 
 /* Task 1 */
 game_state_t* create_default_state() {
-  // TODO: Implement this function.
-  return NULL;
+  game_state_t *default_state = calloc(sizeof(game_state_t), 1);
+  int x_size = 14;
+  int y_size = 10;
+  int num_snakes = 1;
+  default_state->x_size = x_size;
+  default_state->y_size = y_size;
+  default_state->num_snakes = num_snakes;
+  snake_t *snakes = calloc(sizeof(snake_t), num_snakes);
+  snakes[0].head_x = 5;
+  snakes[0].head_y = 4;
+  snakes[0].tail_x = 4;
+  snakes[0].tail_y = 4;
+  snakes[0].live = true;
+  default_state->snakes = snakes;
+  default_state->board = calloc(sizeof(char *), y_size);
+  for (int y = 0; y < y_size; y += 1)
+  {
+    default_state->board[y] = calloc(sizeof(char), x_size + 1);
+    for (int x = 0; x < x_size; x += 1)
+    {
+      set_board_at(default_state, x, y, ' ');
+    }
+    set_board_at(default_state, x_size, y, '\0');
+  }
+  for (int x = 0; x < x_size; x += 1) {
+    set_board_at(default_state, x, 0, '#');
+    set_board_at(default_state, x, y_size - 1, '#');
+  }
+  for (int y = 0; y < y_size; y += 1) {
+    set_board_at(default_state, 0, y, '#');
+    set_board_at(default_state, x_size - 1, y, '#');
+  }
+  set_board_at(default_state, 9, 2, '*');
+  set_board_at(default_state, 4, 4, 'd');
+  set_board_at(default_state, 5, 4, '>');
+  return default_state;
 }
 
 /* Task 2 */
 void free_state(game_state_t* state) {
-  // TODO: Implement this function.
+  for (int y = 0; y < state->y_size; y += 1) {
+    free(state->board[y]);
+  }
+  free(state->board);
+  free(state->snakes);
+  free(state);
   return;
 }
 
 /* Task 3 */
 void print_board(game_state_t* state, FILE* fp) {
-  // TODO: Implement this function.
+  for (int y = 0; y < state->y_size; y += 1){
+    fprintf(fp, "%s\n", state->board[y]);
+  }
   return;
 }
 
