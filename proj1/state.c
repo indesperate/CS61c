@@ -225,7 +225,7 @@ void update_state(game_state_t* state, int (*add_food)(game_state_t* state)) {
 
 /* Task 5 */
 game_state_t* load_board(char* filename) {
-  game_state_t* game_state = calloc(sizeof(game_state), 1);
+  game_state_t* game_state = calloc(sizeof(game_state_t), 1);
   FILE* f = fopen(filename, "r");
   int row = 0;
   int col = 0;
