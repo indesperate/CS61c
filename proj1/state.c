@@ -225,8 +225,38 @@ void update_state(game_state_t* state, int (*add_food)(game_state_t* state)) {
 
 /* Task 5 */
 game_state_t* load_board(char* filename) {
-  // TODO: Implement this function.
-  return NULL;
+  game_state_t* game_state = calloc(sizeof(game_state), 1);
+  FILE* f = fopen(filename, "r");
+  int row = 0;
+  int col = 0;
+  int flag = 0;
+  while (!feof(f))
+  {
+    flag = fgetc(f);
+    col += 1;
+    if (flag == '\n')
+    {
+      row += 1;
+      break;
+    }
+  }
+  while (!feof(f))
+  {
+    flag = fgetc(f);
+    if (flag == '\n')
+      row += 1;
+  }
+  game_state->board = calloc(sizeof(char*), row);
+  game_state->x_size = col - 1;
+  game_state->y_size = row;
+  rewind(f);
+  for (int i = 0; i < row; i += 1)
+  {
+    game_state->board[i] = calloc(sizeof(char), col);
+    fgets(game_state->board[i], col, f);
+    fgetc(f);
+  }
+  return game_state;
 }
 
 /* Task 6.1 */
