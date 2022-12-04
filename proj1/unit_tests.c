@@ -98,32 +98,66 @@ bool assert_state_equals(game_state_t* expected, game_state_t* actual) {
 }
 
 bool test_is_tail() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_is_tail doesn't have any tests.");
+  if (!assert_true("is_tale", is_tail('w')))
+  {
+    return false;
+  }
   return true;
 }
 
 bool test_is_snake() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_is_snake doesn't have any tests.");
+  if (!assert_true("is_snake", is_snake('w')))
+  {
+    return false;
+  }
+  if (!assert_true("is_snake", is_snake('>')))
+  {
+    return false;
+  }
+  if (!assert_true("is_snake", is_snake('x')))
+  {
+    return false;
+  }
   return true;
 }
 
 bool test_body_to_tail() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_body_to_tail doesn't have any tests.");
+  if (!assert_equals_char("body_to_tail", 'w', body_to_tail('^')))
+  {
+    return false;
+  }
+  if (!assert_equals_char("body_to_tail", 's', body_to_tail('v')))
+  {
+    return false;
+  }
   return true;
 }
 
 bool test_incr_x() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_incr_x doesn't have any tests.");
+  if (!assert_equals_int("incr_x", 1, incr_x('d')))
+  {
+    return false;
+  }
+  if (!assert_equals_int("incr_x", -1, incr_x('<')))
+  {
+    return false;
+  }
   return true;
 }
 
 bool test_incr_y() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_incr_y doesn't have any tests.");
+  if (!assert_equals_int("incr_y", 1, incr_y('v')))
+  {
+    return false;
+  }
+  if (!assert_equals_int("incr_y", -1, incr_y('w')))
+  {
+    return false;
+  }
+  if (!assert_equals_int("incr_y", 0, incr_y('x')))
+  {
+    return false;
+  }
   return true;
 }
 
