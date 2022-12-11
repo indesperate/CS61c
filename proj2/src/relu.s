@@ -14,20 +14,22 @@
 # ==============================================================================
 relu:
 	# Prologue
-
+    li t0, 0 # t0 = 0
+    bgt a1, t0, loop_start # if length > 0 then loop_start
+    li a0, 36
+    j exit
 
 loop_start:
-
-
-
-
-
-
-
+    bge t0, a1, loop_end # jump if t0 >= length
+    slli t1, t0, 2 # set offset
+    add t1, t1, a0 # get &head[t0]
+    lw t2, 0(t1) # get head[t0]
+    bge t2, x0, loop_continue # if (head[t0] >= 0 ) do nothing
+    sw x0, 0(t1) # set it to zero
 
 loop_continue:
-
-
+    addi t0, t0, 1 # add one
+    j loop_start  # jump to loop_start
 
 loop_end:
 
