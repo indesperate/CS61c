@@ -79,7 +79,7 @@ inner_loop_start:
     lw t1, 4(sp)
     lw t2, 8(sp)
     addi sp, sp, 12 # save and call
-    mul t3, t0, s3 # t3 = i * Ah
+    mul t3, t0, s5 # t3 = i * Ah
     add t3, t3, t1 # t3 = i * Ah + j
     slli t3, t3, 2
     add t3, t3, s2 # get address of the result
