@@ -100,7 +100,7 @@ classify:
 	mv a1, s8
 	call relu
 	# Compute o = matmul(m1, h)
-	lw t0, 0(s2) # 0(s2) h row
+	lw t0, 0(s4) # 0(s2) h row
 	lw t1, 4(s6) # 4(s6) h column
 	mul s10, t0, t1 # s10 = matrix o size
 	mv a0, s10
