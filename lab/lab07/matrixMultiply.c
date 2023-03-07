@@ -107,3 +107,11 @@ int main( int argc, char **argv ) {
 
     return 0;
 }
+
+
+/* 
+because of the matrix access is colomn based
+i is accessed first, then comes the k, the j
+so the jki is fastest
+the kij,ikj is slowest
+*/
