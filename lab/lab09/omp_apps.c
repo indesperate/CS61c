@@ -73,21 +73,20 @@ double dotp_naive(double* x, double* y, int arr_size) {
 
 // Manual Reduction
 double dotp_manual_optimized(double* x, double* y, int arr_size) {
-    double global_sum = 0.0;
-    const int MAX_THREADS = 16;
-    double sum[MAX_THREADS];
-    for (int i = 0; i < MAX_THREADS; i++) sum[i] = 0.;
-    #pragma omp parallel
-    {
-        #pragma omp for
-        for (int i = 0; i < arr_size; i ++)
-        {
-            int id = omp_get_thread_num();
-            sum[id] += x[i] * y[i];
-        }
+      double global_sum = 0.0;
+  #pragma omp parallel
+  {
+	int tid = omp_get_thread_num();
+	int num_threads = omp_get_num_threads();
+    int chunk_size = arr_size / num_threads + 1;
+    double thread_sum = 0;
+    for (int i = tid * chunk_size; i < (tid + 1) * chunk_size && i < arr_size; i++) {
+      thread_sum += x[i] * y[i];
     }
-    for (int i = 0; i < MAX_THREADS; i++) global_sum += sum[i];
-    return global_sum;
+    #pragma omp critical
+    global_sum += thread_sum;
+  }
+  return global_sum;
 }
 
 // Reduction Keyword
